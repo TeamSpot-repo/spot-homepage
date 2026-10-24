@@ -1,0 +1,9 @@
+# GitHub Pages 가 이 저장소를 Jekyll 로 빌드할 때 쓰는 설정입니다.
+# 헤더·푸터를 _includes 폴더에서 한 벌만 관리하려고 들였습니다.
+
+# 결과물에 넣지 않을 것
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

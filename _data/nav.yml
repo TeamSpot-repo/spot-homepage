@@ -1,0 +1,11 @@
+# 상단 메뉴에 들어가는 항목입니다. 여기만 고치면 모든 페이지에 반영됩니다.
+# slug 는 주소 조각입니다. 비워 두면 홈입니다.
+
+- slug: ""
+  label: Home
+- slug: about
+  label: About
+- slug: services
+  label: Services
+- slug: contact
+  label: Contact
