@@ -1,1 +1,5 @@
 .DS_Store
+
+# Jekyll 이 만들어 내는 결과물. GitHub 이 올릴 때 다시 만들므로 저장소에 넣지 않습니다
+_site/
+.jekyll-cache/

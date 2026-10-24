@@ -1,0 +1,65 @@
+{%- comment -%}
+  모든 페이지가 함께 쓰는 상단 메뉴입니다.
+  페이지마다 두 가지를 넘겨 줍니다.
+
+    page   지금 보고 있는 페이지의 주소 조각. 홈이면 빈 값, 소개 페이지면 about
+    lang   en 또는 ko
+
+  넘겨받은 값으로 링크 주소와 "지금 이 페이지" 표시를 정합니다.
+{%- endcomment -%}
+
+{%- comment -%} 같은 언어 안에서 쓸 기준 주소 {%- endcomment -%}
+{%- if include.lang == "ko" -%}
+  {%- assign home = "/ko/" -%}
+{%- else -%}
+  {%- assign home = "/" -%}
+{%- endif -%}
+
+{%- comment -%} 언어 전환 단추가 가리킬 주소. 지금 페이지의 반대 언어판입니다 {%- endcomment -%}
+{%- if include.page == "" -%}
+  {%- assign en_url = "/" -%}
+  {%- assign ko_url = "/ko/" -%}
+{%- else -%}
+  {%- assign en_url = "/" | append: include.page | append: "/" -%}
+  {%- assign ko_url = "/ko/" | append: include.page | append: "/" -%}
+{%- endif -%}
+
+{%- comment -%} 홈이면 로고에 "지금 이 페이지" 표시를 붙입니다 {%- endcomment -%}
+{%- assign home_mark = "" -%}
+{%- assign home_aria = "" -%}
+{%- if include.page == "" -%}
+  {%- assign home_mark = " w--current" -%}
+  {%- assign home_aria = ' aria-current="page"' -%}
+{%- endif -%}
+
+{%- comment -%} 지금 보고 있는 언어 쪽에 표시를 붙입니다 {%- endcomment -%}
+{%- assign en_mark = "" -%}
+{%- assign en_aria = "" -%}
+{%- assign ko_mark = "" -%}
+{%- assign ko_aria = "" -%}
+{%- if include.lang == "ko" -%}
+  {%- assign ko_mark = " w--current" -%}
+  {%- assign ko_aria = ' aria-current="page"' -%}
+{%- else -%}
+  {%- assign en_mark = " w--current" -%}
+  {%- assign en_aria = ' aria-current="page"' -%}
+{%- endif -%}
+
+<div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navbar w-nav"><div class="div-nav"><a href="{{ home }}"{{ home_aria }} class="div-nav-left w-nav-brand{{ home_mark }}"><img src="/assets/images/68888c145877bd6b5aa0a24f_logo-spot.svg" loading="lazy" alt="TEAM SPOT Logo" class="logo"/></a><nav role="navigation" class="nav-menu w-nav-menu">
+{%- for item in site.data.nav -%}
+  {%- if item.url -%}
+    <a href="{{ item.url }}" target="_blank" rel="noopener" class="nav-link w-nav-link">{{ item.label }}{%- include icon-external.html -%}</a>
+  {%- else -%}
+    {%- if item.slug == "" -%}
+      {%- assign url = home -%}
+    {%- else -%}
+      {%- assign url = home | append: item.slug | append: "/" -%}
+    {%- endif -%}
+    {%- if item.slug == include.page -%}
+      <a href="{{ url }}" aria-current="page" class="nav-link w-nav-link w--current">{{ item.label }}</a>
+    {%- else -%}
+      <a href="{{ url }}" class="nav-link w-nav-link">{{ item.label }}</a>
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+<div class="locales-wrapper w-locales-list"><div role="list" class="w-locales-items"><div role="listitem" class="w-locales-item"><a hreflang="en" href="{{ en_url }}"{{ en_aria }} class="nav-lang{{ en_mark }}">English</a></div><div role="listitem" class="w-locales-item"><a hreflang="ko" href="{{ ko_url }}"{{ ko_aria }} class="nav-lang{{ ko_mark }}">Korean</a></div></div></div><div data-hover="false" data-delay="0" class="dropdown w-dropdown"><div class="dropdown-toggle-4 w-dropdown-toggle"><div class="language">( Language )</div></div><nav class="lang-list w-dropdown-list"><a href="{{ en_url }}"{{ en_aria }} class="lang-item w-dropdown-link{{ en_mark }}">English</a><a href="{{ ko_url }}"{{ ko_aria }} class="lang-item w-dropdown-link{{ ko_mark }}">Korean</a></nav></div></nav><div class="menu-button w-nav-button"><div class="icon-2 w-icon-nav-menu"></div></div></div></div>
